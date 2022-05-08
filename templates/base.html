@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="{% static 'bootstrap/js/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>    
+
+{% block css %}
+    
+{% endblock css %}
+    
+
+</head>
+<body>
+<div class="wrapper d-flex">
+    
+    <div class="content-main">
+        
+
+        
+            
+            {% block content %}
+                
+            {% endblock content %}
+                
+        
+
+        <footer>
+            <div class="footer-main">
+                <div class="copy">
+                    <span>VideoProcessing</span>
+                </div>
+                
+            </div>
+        </footer>
+    </div>
+</div>
+{% block modals %}
+    
+{% endblock modals %}
+
+{% block js %}
+    
+{% endblock js %}
+    
+</body>
+</html>

@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<section class="content content-list">
+
+    <div class="content-info">
+        <div class="title">
+            <h2>Список</h2>
+            <a href="#" data-toggle="modal" data-target="#addNew">Добавить</a>
+        </div>
+        <div class="info-main">
+            <div class="info-block">
+                <div class="info-table__cost">
+                    <div class="row-0 info-table__cost-body">
+                        <div class="col-0-6">
+                            <strong>ID</strong>
+                        </div>
+                       
+                        <div class="col-0-20">
+                            <div class="info-table__cost-title">
+                                <h2>Прогрес</h2>
+                            </div>
+                        </div>
+                        
+                        <div class="col-0-15">
+                            <span>Результат</span>
+                        </div>
+                        <div class="col-0-15">
+                            <!-- <a href="#" class="badge badge-primary">
+                                <i class="fa fa-pencil"></i>
+                            </a> -->
+                        </div>
+                    </div>
+                    {% for video in videos %}
+                        <div class="row-0 info-table__cost-body">
+                            <div class="col-0-6">
+                                <strong>{{ video.id }}</strong>
+                            </div>
+                       
+                            </div>
+                            
+                            <div class="col-0-20">
+                                <div class="info-table__cost-title">
+                                    <h2>{{ video.progress }}</h2>
+                                </div>
+                            </div>
+                            
+                            <div class="col-0-15">
+                                <span>{{ video.result}}</span>
+                            </div>
+                            <div class="col-0-15">
+                                <!-- <a href="#" class="badge badge-primary">
+                                    <i class="fa fa-pencil"></i>
+                                </a> -->
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+{% endblock content %}
+    
+
+{% block modals %}
+    <!-- Modal -->
+<div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-content">
+       <form action="" method="post">
+           {% csrf_token %}
+           <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLongTitle">Загрузить видео</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body">
+               
+               <div class="form-group">
+                   <label for="">Видео</label>
+                   
+                   <input type="file" name="file" id="file" accept=".avi,.mp4" class="form-control />
+               </div>
+           </div>
+           <div class="modal-footer">
+               <button id="saveButton" 
+               data-api="{% url 'video-upload'%}"
+               type="button"
+                       class="btn btn-primary">Загрузить
+               </button>
+           </div>
+       </form>
+   </div>
+</div>
+</div>
+{% endblock modals %}
+    
+
+        
+        
+
+{% block js %}
+<script>
+    var token = '{{csrf_token}}';
+    $("#saveButton").click(function (event) {
+        event.preventDefault();
+
+        let districtFormData = new FormData();
+        districtFormData.append('file', $('#file')[0].files[0]);        
+
+        $.ajax({
+            headers: {"X-CSRFToken": token},
+            url: $(this).data('api'),
+            data: districtFormData,            
+            processData: false,
+            contentType: false,
+            type: "POST",
+            success: function (data) {
+                location.reload()
+            },
+            error: function (data) {
+
+            }
+        });
+    });
+</script>
+{% endblock js %}
+    
