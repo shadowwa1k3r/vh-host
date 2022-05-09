@@ -14,8 +14,8 @@ class VideoUploadAPIView(APIView):
         print(request.POST)
         vid = Video.objects.create()
         session = boto3.Session(
-            aws_access_key_id='AKIAZVZNJBXI35X2S4MP',
-            aws_secret_access_key='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'
+            aws_access_key_id='key_id',
+            aws_secret_access_key='key'
         )
         s3 = session.resource('s3')
         result = s3.Bucket('vh-s3').put_object(Body=file, Key='{}/{}'.format(str(vid.id), file.name))
